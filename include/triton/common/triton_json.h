@@ -796,26 +796,6 @@ class TritonJson {
       return TRITONJSON_STATUSSUCCESS;
     }
 
-    // Get named object key contained in this object.
-    TRITONJSON_STATUSTYPE KeyAsObject(
-        const char* name, TritonJson::Value* value)
-    {
-      rapidjson::Value& object = AsMutableValue();
-      if (!object.IsObject() || !object.HasMember(name)) {
-        TRITONJSON_STATUSRETURN(
-            std::string("attempt to access non-existing object member '") +
-            name + "'");
-      }
-      auto it = object.FindMember(name);
-      auto& v = it->name;
-      if (!v.IsString()) {
-        TRITONJSON_STATUSRETURN(
-            std::string("attempt to access JSON non-object as object"));
-      }
-      *value = TritonJson::Value(v, allocator_);
-      return TRITONJSON_STATUSSUCCESS;
-    }
-
     // Get object member as a string. The string may contain null or other
     // special characters and so 'len' must be used to determine length.
     // Error if this is not an object or if the member is not a string.
