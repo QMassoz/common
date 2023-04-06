@@ -806,7 +806,7 @@ class TritonJson {
             std::string("attempt to access non-existing object member '") +
             name + "'");
       }
-      rapidjson::MemberIterator it = object.FindMember(name);
+      rapidjson::GenericMemberIterator it = object.FindMember(name);
       auto& v = it->name;
       if (!v.IsString()) {
         TRITONJSON_STATUSRETURN(
